@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	if ( Auth::check() ) return 'Welcome back, ' . Auth::user()->username;
+    return 'Hi guest ' . link_to('login', 'login with githiub');
 });
