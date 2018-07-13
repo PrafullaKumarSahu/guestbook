@@ -13,10 +13,9 @@
 
 Route::get('/', function () {
 	if ( Auth::check() ) return 'Welcome back, ' . Auth::user()->username;
-    return 'Hi guest ' . route('login', 'login with githiub');
+    return 'Hi guest! <a href="' . url('login') .  '">login</a> with githiub';
 });
 
-Route::get('login', 'AuthController@login')->name('login');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
