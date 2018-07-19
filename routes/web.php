@@ -30,6 +30,3 @@ Route::get('google', function(){
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
-
-Route::resource('signatures', 'Api\SignatureController')->only(['index', 'store', 'show']);
-Route::put('signatures/{signature}/report', 'Api\ReportSignature@update');
