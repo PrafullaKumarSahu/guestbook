@@ -30,3 +30,5 @@ Route::get('google', function(){
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+Route::get('signatures', 'SignatureController@index')->name('signatures');
+Route::get('sign', 'SignaturesController@create')->name('sign');
