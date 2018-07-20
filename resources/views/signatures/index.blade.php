@@ -1,4 +1,4 @@
-@extends('master')
+@extends('signatures.master')
 
 @section('content')
     <div class="container">
