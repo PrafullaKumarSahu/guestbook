@@ -16,6 +16,15 @@ class Errors {
 	clear(field) {
 		delete this.errors[field];
 	}
+
+	has(field){
+		if ( this.errors[field] )
+			return this.errors[field][0];
+	}
+
+	any(){
+		return Object.keys(this.errors).length > 0;
+	}
 }
 Vue.component('signatures', {
     template: '<p>Nothing for now</p>'
@@ -41,8 +50,14 @@ new Vue({
     methods: {
     	onSubmit(){
     		axios.post('/api/signatures', this.$data)
-    			.then(response => console.log(response))
+    			.then(this.onSuccess)
     			.catch(error => this.errors.record(error.response.data.errors));
+    	},
+
+    	onSuccess(){
+    		this.name = '';
+    		this.email = '';
+    		this.body = '';
     	}
     }
 });

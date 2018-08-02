@@ -9,7 +9,7 @@
 		        </div>
 
 		        <div class="well well-sm" id="signature-form">
-		            <form class="form-horizontal" method="post" @submit.prevent="onSubmit">
+		            <form class="form-horizontal" method="post" @submit.prevent="onSubmit" @keydown="errors.clear($event.target.name)">
 		                <fieldset>
 		                    <legend class="text-center">Sign the GuestBook</legend>
 
@@ -17,12 +17,12 @@
 		                        <label class="col-md-3 control-label" for="name">Name</label>
 		                        <div class="col-md-9">
 		                            <input id="name"
+		                            	   name="name"
 		                                   type="text"
 		                                   v-model="name"
-		                                   @keydown="errors.clear('name')"
 		                                   placeholder="Your name"
 		                                   class="form-control">
-		                                   <span class="help is-danger" v-text="errors.get('name')"></span>
+		                                   <span class="help is-danger" v-if="errors.has('name')" v-text="errors.get('name')"></span>
 		                        </div>
 		                    </div>
 
@@ -30,12 +30,12 @@
 		                        <label class="col-md-3 control-label" for="email">Your E-mail</label>
 		                        <div class="col-md-9">
 		                            <input id="email"
+		                            	   name="email"
 		                                   type="text"
 		                                   v-model="email"
-		                                   @keydown="errors.clear('email')"
 		                                   placeholder="Your email"
 		                                   class="form-control">
-		                                   <span class="help is-danger" v-text="errors.get('email')"></span>
+		                                   <span class="help is-danger" v-if="errors.has('email')" v-text="errors.get('email')"></span>
 		                        </div>
 		                    </div>
 
@@ -46,17 +46,16 @@
 		                                    		  name="body"
 		                                              id="body"
 		                                              v-model="body"
-		                                              @keydown="errors.clear('body')"
 		                                              placeholder="Please enter your message here..."
 		                                              rows="5">
 		                                	</textarea>
-		                                	<span class="help is-danger" v-text="errors.get('body')" ></span>
+		                                	<span class="help is-danger" v-if="errors.has('body')" v-text="errors.get('body')" ></span>
 		                        </div>
 		                    </div>
 
 		                    <div class="form-group">
 		                        <div class="col-md-12 text-right">
-		                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+		                            <button type="submit" class="btn btn-primary btn-lg" :disabled="errors.any()">Submit</button>
 		                        </div>
 		                    </div>
 		                </fieldset>
