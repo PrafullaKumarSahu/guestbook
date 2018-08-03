@@ -1,3 +1,47 @@
+class Form {
+	constructor(data) {
+
+		this.originalData = data;
+
+		this.data = data;
+
+		for ( let field in data ){
+			this[field] = data[field];
+		}
+
+		this.errors = new Errors()
+	}
+
+	postedData(){
+		let data = Object.assign({}, this);
+		delete data.originalData;
+		delete data.errors;
+		return data;
+	}
+
+	reset() {
+		for ( let field in this.originalData ){
+			this[field] = '';
+		}
+	}
+
+	submit(requestType, url) {
+		axios[requestType](url, this.postedData())
+    			.then(this.onSuccess.bind(this))
+    			.catch(this.onFail.bind(this));
+	}
+
+	onSuccess(response) {
+		this.errors.clear();
+		this.reset();
+	}
+
+	onFail(error) {
+
+		this.errors.record(error.response.data.errors);
+	}
+}
+
 class Errors {
 	constructor() {
 		this.errors = {};
@@ -14,7 +58,12 @@ class Errors {
 	}
 
 	clear(field) {
-		delete this.errors[field];
+		if ( field ){
+			delete this.errors[field];
+			return;
+		} else{
+			this.errors = {};
+		}
 	}
 
 	has(field){
@@ -26,6 +75,7 @@ class Errors {
 		return Object.keys(this.errors).length > 0;
 	}
 }
+
 Vue.component('signatures', {
     template: '<p>Nothing for now</p>'
 });
@@ -33,31 +83,21 @@ new Vue({
     el: '#app',
     data: {
     	signatures: [],
-    	name: '',
-    	email: '',
-    	body: '',
+    	form: new Form({
+    		name: '',
+	    	email: '',
+	    	body: '',
+    	}),
     	saved: false,
-    	errors: new Errors(),
     	message: '',
     },
-    mounted(){
-        // axios.get('/api/signatures').then(function (response) {
-        //     this.signatures = response.data.data;
-        // }.bind(this));
+    mounted() {
         axios.get('/api/signatures')
         	.then(response => this.signatures = response.data.data);
     },
     methods: {
-    	onSubmit(){
-    		axios.post('/api/signatures', this.$data)
-    			.then(this.onSuccess)
-    			.catch(error => this.errors.record(error.response.data.errors));
-    	},
-
-    	onSuccess(){
-    		this.name = '';
-    		this.email = '';
-    		this.body = '';
+    	onSubmit() {
+    		this.form.submit('post', '/api/signatures');
     	}
     }
 });
