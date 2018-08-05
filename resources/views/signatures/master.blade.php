@@ -26,9 +26,6 @@
         </nav>
         @yield('content')
     </div>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
-    <script type="text/javascript" src="/js/script.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

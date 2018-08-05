@@ -21,6 +21,8 @@ try {
  */
 
 window.axios = require('axios');
+import Form from './core/Form';
+window.Form = Form;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

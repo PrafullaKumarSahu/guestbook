@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
 	        <div class="col-md-12">
-		        <div class="alert alert-success" v-if="saved">
+		        <div class="alert alert-success hidden" v-if="saved">
 		            <strong>Success!</strong> Your signature has been saved successfully.
 		        </div>
 
