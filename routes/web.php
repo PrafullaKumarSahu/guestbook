@@ -32,7 +32,3 @@ Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 Route::get('signatures', 'SignatureController@index')->name('signatures');
 Route::get('signatures/create', 'SignatureController@create')->name('sign');
-
-Route::get('skills', function(){
-	return ['PHP', 'Java', 'C', 'C++'];
-});
