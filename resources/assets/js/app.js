@@ -9,12 +9,14 @@ require('./bootstrap');
 
 import Vue from 'vue';
 
-Vue.component('signatures', {
-	template: '<p>Nothing for now</p>'
-})
+import Signatures from './components/Signatures.vue';
 
 new Vue({
     el: '#app',
+
+    components: {
+    	Signatures
+    },
     data: {
     	signatures: [],
     	form: new Form({
