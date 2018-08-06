@@ -12965,13 +12965,31 @@ if (token) {
 /***/ }),
 
 /***/ 14:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = ({
-	template: '<p>Nothing for now</p>'	
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.default = void 0;
+var _default = {
+  template: '<ul><li v-for="signature in signatures">{{ signature.name }}</li></ul>',
+  data: function data() {
+    return {
+      signatures: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/signatures').then(function (response) {
+      return _this.signatures = response.data.data;
+    });
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -13008,13 +13026,6 @@ new _vue.default({
     }),
     saved: false,
     message: ''
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get('/api/signatures').then(function (response) {
-      return _this.signatures = response.data.data;
-    });
   },
   methods: {
     onSubmit: function onSubmit() {

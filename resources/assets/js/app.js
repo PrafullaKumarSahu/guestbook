@@ -27,10 +27,6 @@ new Vue({
     	saved: false,
     	message: '',
     },
-    mounted() {
-        axios.get('/api/signatures')
-        	.then(response => this.signatures = response.data.data);
-    },
     methods: {
     	onSubmit() {
     		this.form.submit('post', '/api/signatures')
